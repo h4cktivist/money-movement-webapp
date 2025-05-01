@@ -1,4 +1,5 @@
 from django import forms
+from django.utils import timezone
 
 from .models import Transaction, Status, TransactionType, Category, Subcategory
 
@@ -14,6 +15,9 @@ class TransactionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        if not self.instance.pk:
+            self.initial['date'] = timezone.now().date()
 
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
