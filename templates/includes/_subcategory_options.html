@@ -1,0 +1,7 @@
+<option value="">---------</option>
+{% for subcategory in subcategories %}
+<option value="{{ subcategory.pk }}"
+        {% if selected and selected == subcategory.pk|stringformat:"s" %}selected{% endif %}>
+    {{ subcategory.name }}
+</option>
+{% endfor %}

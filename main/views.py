@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
+from django.contrib import messages
 
 from .models import Transaction, TransactionType, Category, Subcategory, Status
+from .forms import TransactionForm
 
 
 def get_transactions(request):
@@ -40,3 +42,78 @@ def get_transactions(request):
     }
 
     return render(request, 'transaction_list.html', context)
+
+
+def get_categories(request):
+    transaction_type_id = request.GET.get('transaction_type_id')
+    selected = request.GET.get('selected')
+
+    categories = Category.objects.filter(transaction_type_id=transaction_type_id)
+
+    context = {
+        'categories': categories,
+        'selected': selected,
+    }
+    return render(request, 'includes/_category_options.html', context)
+
+
+def get_subcategories(request):
+    category_id = request.GET.get('category_id')
+    selected = request.GET.get('selected')
+
+    subcategories = Subcategory.objects.filter(category_id=category_id)
+
+    context = {
+        'subcategories': subcategories,
+        'selected': selected,
+    }
+    return render(request, 'includes/_subcategory_options.html', context)
+
+
+def transaction_create(request):
+    if request.method == 'POST':
+        form = TransactionForm(request.POST)
+        if form.is_valid():
+            transaction = form.save()
+            messages.success(request, 'Операция успешно создана!')
+            return redirect('transaction_list')
+    else:
+        form = TransactionForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'transaction_form.html', context)
+
+
+def transaction_update(request, pk):
+    transaction = get_object_or_404(Transaction, pk=pk)
+
+    if request.method == 'POST':
+        form = TransactionForm(request.POST, instance=transaction)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Операция успешно обновлена!')
+            return redirect('transaction_list')
+    else:
+        form = TransactionForm(instance=transaction)
+
+    context = {
+        'form': form,
+        'transaction': transaction,
+    }
+    return render(request, 'transaction_form.html', context)
+
+
+def transaction_delete(request, pk):
+    transaction = get_object_or_404(Transaction, pk=pk)
+
+    if request.method == 'POST':
+        transaction.delete()
+        messages.success(request, 'Операция успешно удалена!')
+        return redirect('transaction_list')
+
+    context = {
+        'transaction': transaction,
+    }
+    return render(request, 'transaction_confirm_delete.html', context)

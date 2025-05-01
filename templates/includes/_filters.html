@@ -122,7 +122,6 @@ $(document).ready(function() {
     filterCategories();
     filterSubcategories();
 
-    // Обработчики событий
     $('#transaction_type').change(function() {
         filterCategories();
         filterSubcategories();
@@ -133,7 +132,6 @@ $(document).ready(function() {
     });
 
     $('#filter-form').submit(function() {
-        // Скрытые опции могут вызвать проблемы при отправке формы
         $('#category option').prop('disabled', function() {
             return $(this).css('display') === 'none';
         });
