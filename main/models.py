@@ -23,7 +23,7 @@ class Category(models.Model):
         unique_together = ('name', 'transaction_type')
 
     def __str__(self):
-        return f'{self.name} ({self.transaction_type})'
+        return f'{self.name}'
 
 
 class Subcategory(models.Model):
@@ -34,7 +34,7 @@ class Subcategory(models.Model):
         unique_together = ('name', 'category')
 
     def __str__(self):
-        return f'{self.name} ({self.category})'
+        return f'{self.name}'
 
 
 class Transaction(models.Model):
