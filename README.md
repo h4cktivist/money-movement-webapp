@@ -16,7 +16,7 @@ docker run -p 8000:8000 h4cktivist/money_movement_app
 ```sh
 git clone https://github.com/h4cktivist/money-movement-webapp.git
 cd money-movement-webapp
-pip install - r requirements.txt
+pip install -r requirements.txt
 ```
 
 *Опционально:* создать `.env` файл и задать название базы данных согласно шаблону в `.env.example`
