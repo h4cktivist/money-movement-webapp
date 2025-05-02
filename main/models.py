@@ -1,6 +1,7 @@
 from django.db import models
 
 
+# ORM-модель статуса
 class Status(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -8,6 +9,7 @@ class Status(models.Model):
         return self.name
 
 
+# ORM-модель типа транзакции
 class TransactionType(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -15,6 +17,7 @@ class TransactionType(models.Model):
         return self.name
 
 
+# ORM-модель категории
 class Category(models.Model):
     name = models.CharField(max_length=100)
     transaction_type = models.ForeignKey(TransactionType, on_delete=models.CASCADE)
@@ -26,6 +29,7 @@ class Category(models.Model):
         return f'{self.name}'
 
 
+# ORM-модель подкатегории
 class Subcategory(models.Model):
     name = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)

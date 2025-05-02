@@ -6,6 +6,7 @@ from .models import Transaction, TransactionType, Category, Subcategory, Status
 from .forms import TransactionForm, TransactionTypeForm, CategoryForm, SubcategoryForm, StatusForm
 
 
+# View для отображения таблицы со всеми транзакциями
 def get_transactions(request):
     transactions = Transaction.objects.all().order_by('-date')
 
@@ -44,6 +45,7 @@ def get_transactions(request):
     return render(request, 'transaction_list.html', context)
 
 
+# View для получения выпадающего списка категорий
 def get_categories(request):
     transaction_type_id = request.GET.get('transaction_type_id')
     selected = request.GET.get('selected')
@@ -57,6 +59,7 @@ def get_categories(request):
     return render(request, 'includes/_category_options.html', context)
 
 
+# View для получения выпадающего списка подкатегорий
 def get_subcategories(request):
     category_id = request.GET.get('category_id')
     selected = request.GET.get('selected')
@@ -70,6 +73,7 @@ def get_subcategories(request):
     return render(request, 'includes/_subcategory_options.html', context)
 
 
+# View для создания новой транзакции
 def transaction_create(request):
     if request.method == 'POST':
         form = TransactionForm(request.POST)
@@ -86,6 +90,7 @@ def transaction_create(request):
     return render(request, 'transaction_form.html', context)
 
 
+# View для обновления транзакции
 def transaction_update(request, pk):
     transaction = get_object_or_404(Transaction, pk=pk)
 
@@ -105,6 +110,7 @@ def transaction_update(request, pk):
     return render(request, 'transaction_form.html', context)
 
 
+# View для удаления транзакции
 def transaction_delete(request, pk):
     transaction = get_object_or_404(Transaction, pk=pk)
 
@@ -119,6 +125,7 @@ def transaction_delete(request, pk):
     return render(request, 'transaction_confirm_delete.html', context)
 
 
+# View для управления справочниками: просмотр и добавление новых
 def reference_management(request):
     if request.method == 'POST':
         status_form = StatusForm(request.POST, prefix='status')
@@ -165,6 +172,7 @@ def reference_management(request):
     return render(request, 'reference_management.html', context)
 
 
+# View для обновления объекта справочника
 def edit_reference_item(request, model_name, pk):
     models_map = {
         'status': (Status, StatusForm),
@@ -199,6 +207,7 @@ def edit_reference_item(request, model_name, pk):
     return render(request, 'reference_item_edit.html', context)
 
 
+# View для удаления объекта справочника
 def delete_reference_item(request, model_name, pk):
     models_map = {
         'status': Status,

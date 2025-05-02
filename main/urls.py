@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 
 
+# URL-ы CRUD-операций для танзакций и объектов справочника
 urlpatterns = [
     path('', views.get_transactions, name='transaction_list'),
     path('create/', views.transaction_create, name='transaction_create'),

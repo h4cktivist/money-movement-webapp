@@ -4,6 +4,7 @@ from django.utils import timezone
 from .models import Transaction, Status, TransactionType, Category, Subcategory
 
 
+# Форма для добавления и обновления транзакции
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
@@ -41,6 +42,7 @@ class TransactionForm(forms.ModelForm):
             self.fields['subcategory'].queryset = self.instance.category.subcategory_set.all()
 
 
+# Форма для добавления и обновления статуса
 class StatusForm(forms.ModelForm):
     class Meta:
         model = Status
@@ -65,6 +67,7 @@ class TransactionTypeForm(forms.ModelForm):
         }
 
 
+# Форма для добавления и обновления категории
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
@@ -78,6 +81,7 @@ class CategoryForm(forms.ModelForm):
         }
 
 
+# Форма для добавления и обновления подкатегории
 class SubcategoryForm(forms.ModelForm):
     class Meta:
         model = Subcategory
