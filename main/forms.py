@@ -39,3 +39,53 @@ class TransactionForm(forms.ModelForm):
                 pass
         elif self.instance.pk:
             self.fields['subcategory'].queryset = self.instance.category.subcategory_set.all()
+
+
+class StatusForm(forms.ModelForm):
+    class Meta:
+        model = Status
+        fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите название статуса'
+            }),
+        }
+
+
+class TransactionTypeForm(forms.ModelForm):
+    class Meta:
+        model = TransactionType
+        fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите название типа операции'
+            }),
+        }
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name', 'transaction_type']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите название категории'
+            }),
+            'transaction_type': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
+class SubcategoryForm(forms.ModelForm):
+    class Meta:
+        model = Subcategory
+        fields = ['name', 'category']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите название подкатегории'
+            }),
+            'category': forms.Select(attrs={'class': 'form-control'}),
+        }

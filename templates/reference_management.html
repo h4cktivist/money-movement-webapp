@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Управление справочниками</h2>
+    </div>
+    <div class="card-body">
+        {% include 'includes/_reference_tabs.html' %}
+
+        <div class="tab-content mt-3" id="referenceTabsContent">
+            <div class="tab-pane fade show active" id="status" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>Добавить статус</h5>
+                            </div>
+                            <div class="card-body">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <label for="{{ status_form.name.id_for_label }}" class="form-label">Название</label>
+                                    {{ status_form.name }}
+                                    <button type="submit" name="status_submit" class="btn btn-primary mt-3">
+                                        <i class="bi bi-plus-circle"></i> Добавить
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Список статусов</h5>
+                            </div>
+                            <div class="card-body">
+                                {% include 'includes/_reference_item_list.html' with items=statuses model_name='status' delete_url='delete_reference_item' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="type" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>Добавить тип операции</h5>
+                            </div>
+                            <div class="card-body">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <label for="{{ type_form.name.id_for_label }}" class="form-label">Название</label>
+                                    {{ type_form.name }}
+                                    <button type="submit" name="type_submit" class="btn btn-primary mt-3">
+                                        <i class="bi bi-plus-circle"></i> Добавить
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Список типов операций</h5>
+                            </div>
+                            <div class="card-body">
+                                {% include 'includes/_reference_item_list.html' with items=types model_name='type' delete_url='delete_reference_item' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="category" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>Добавить категорию</h5>
+                            </div>
+                            <div class="card-body">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <label for="{{ category_form.name.id_for_label }}" class="form-label">Название</label>
+                                    {{ category_form.name }}
+                                    <label for="{{ category_form.transaction_type.id_for_label }}" class="form-label">Тип транзакции</label>
+                                    {{ category_form.transaction_type }}
+                                    <button type="submit" name="category_submit" class="btn btn-primary mt-3">
+                                        <i class="bi bi-plus-circle"></i> Добавить
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Список категорий</h5>
+                            </div>
+                            <div class="card-body">
+                                {% include 'includes/_reference_item_list.html' with items=categories model_name='category' delete_url='delete_reference_item' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="subcategory" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>Добавить подкатегорию</h5>
+                            </div>
+                            <div class="card-body">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <label for="{{ subcategory_form.name.id_for_label }}" class="form-label">Название</label>
+                                    {{ subcategory_form.name }}
+                                    <label for="{{ subcategory_form.category.id_for_label }}" class="form-label">Категория</label>
+                                    {{ subcategory_form.category }}
+                                    <button type="submit" name="subcategory_submit" class="btn btn-primary mt-3">
+                                        <i class="bi bi-plus-circle"></i> Добавить
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Список подкатегорий</h5>
+                            </div>
+                            <div class="card-body">
+                                {% include 'includes/_reference_item_list.html' with items=subcategories model_name='subcategory' delete_url='delete_reference_item' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
